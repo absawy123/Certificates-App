@@ -8,11 +8,18 @@ namespace WebApp.Infrastructure.configurations
     {
         public void Configure(EntityTypeBuilder<Location> builder)
         {
-                builder.HasKey("Id");
-                builder.HasOne(l => l.ApplicationUser)
-                    .WithMany(a => a.Locations)
+            builder.HasKey(l => l.Id);
+
+            builder.HasOne(l => l.ApplicationUser).WithMany(a => a.Locations)
                     .HasForeignKey(l => l.ClientId);
+
+            builder.HasMany(l => l.Jobs).WithOne(j => j.Location)
+                    .HasForeignKey(j => j.LocationId);
             
         }
+
     }
+
+
+
 }

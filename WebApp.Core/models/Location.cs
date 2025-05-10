@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace WebApp.Core.models
+﻿namespace WebApp.Core.models
 {
-    public class Location
+    public class Location : BaseEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string City { get; set; }
+        public string Name { get; set; } = default!;
+        public string Description { get; set; } = default!;
+        public string PhoneNumber { get; set; } = default!;
 
         public int ClientId { get; set; }
-        [ForeignKey(nameof(ClientId))]
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser? ApplicationUser { get; set; } = default!;
+        public ICollection<Job>? Jobs { get; set; } = new List<Job>();
+
+
     }
 }

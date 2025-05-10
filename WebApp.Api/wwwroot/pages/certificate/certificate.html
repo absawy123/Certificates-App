@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate</title>
+
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link href="../../css/site.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar navbar-dark bg-primary border-bottom box-shadow mb-3">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="../../images/logo.png" alt="Logo" style="height: 40px;" class="me-2">
+                <span class="fw-bold text-white">CertiSure</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container">
+
+        <h3>Create Certificate</h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/CreateEquipmentCertificate" method="post">
+                    <div class="text-danger"></div>
+
+
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <div class="col-md-4 ">
+                                    <label for="ThoroughExaminationDate" class="col-form-label">Thorough Examination Date</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="ThoroughExaminationDate" name="ThoroughExaminationDate" placeholder="DD/MM/YYYY" type="text" class="form-control pointerCursor" placeholder="DD/MM/YYYY" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label for="Dateofmanufacturing" class="col-form-label">Date of Manufacturing</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="Dateofmanufacturing" name="Dateofmanufacturing" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="CustomerName" class="col-md-4 col-form-label">Customer Name</label>
+                                <div class="col-md-8">
+                                    <input id="CustomerName" name="CustomerName" class="form-control" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="CustomerAddress" class="col-md-4 col-form-label">Customer Location</label>
+                                <div class="col-md-8">
+                                    <input id="CustomerAddress" name="CustomerAddress" class="form-control" readonly />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="ReferenceStandard" class="col-md-4 col-form-label">Reference Standard</label>
+                                <div class="col-md-8 d-flex">
+                                    <select id="ReferenceStandard" name="ReferenceStandard" class="form-select flex-grow-1 border-end-0">
+                                        <option value="Option 1">Option 1</option>
+                                        <option value="Option 2">Option 2</option>
+                                        <option value="Option 3">Option 3</option>
+                                    </select>
+                                    <button class="btn btn-success border-start-0 rounded-0 addButton" type="button" id="addReferenceButton" data-bs-toggle="modal" data-bs-target="#addReferenceModal" data-select-id="ReferenceStandard" data-modal-title="Add New Reference Standard" data-input-label="Reference Standard Name:">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Reference Modal-->
+                        <div class="modal fade" id="addReferenceModal" tabindex="-1" aria-labelledby="addReferenceModalLabel">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-success text-white">
+                                        <h5 class="modal-title" id="addReferenceModalLabel">Add New Reference Standard</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="newReferenceName" class="form-label">Reference Standard:</label>
+                                            <input type="text" class="form-control" id="newReferenceName" placeholder="Enter Reference Standard Name">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer bg-light">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" id="saveReference">Save Reference Standard</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Modal-->
+
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="Quantity" class="col-md-4 col-form-label">Quantity</label>
+                                <div class="col-md-8">
+                                    <input id="Quantity" name="Quantity" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <!-- Equipment Name and Equipment ID in the same row -->
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="EquipmentName" class="col-md-4 col-form-label">Equipment Name</label>
+                                <div class="col-md-8 d-flex">
+                                    <select id="EquipmentName" name="EquipmentName" class="form-select flex-grow-1 border-end-0">
+                                        <option value="Equipment 1">Equipment 1</option>
+                                        <option value="Equipment 2">Equipment 2</option>
+                                        <option value="Equipment 3">Equipment 3</option>
+                                    </select>
+                                    <button class="btn btn-success border-start-0 rounded-0" id="addEquipmentButton" type="button" data-bs-toggle="modal" data-bs-target="#addEquipmentModal">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Equipment Modal-->
+                        <div class="modal fade" id="addEquipmentModal" tabindex="-1" aria-labelledby="addEquipmentModalLabel">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-success text-white">
+                                        <h5 class="modal-title" id="addEquipmentModalLabel">Add New Equipment</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="newEquipmentName" class="form-label">Equipment Name:</label>
+                                            <input type="text" class="form-control" id="newEquipmentName" placeholder="Enter Equipment Name">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer bg-light">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" id="saveEquipment">Save Equipment</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Equipment Modal-->
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="EquipmentID" class="col-md-4 col-form-label">Equipment ID</label>
+                                <div class="col-md-8">
+                                    <input id="EquipmentID" name="EquipmentID" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <!-- Model and Manufacturer in the same row -->
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="Model" class="col-md-4 col-form-label">Model</label>
+                                <div class="col-md-8">
+                                    <input id="Model" name="Model" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="Manufacturer" class="col-md-4 col-form-label">Manufacturer</label>
+                                <div class="col-md-8">
+                                    <input id="Manufacturer" name="Manufacturer" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <!-- Length and Material in the same row -->
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="Length" class="col-md-4 col-form-label">Length</label>
+                                <div class="col-md-8 d-flex">
+                                    <select id="LengthUnit" name="Unit" class="form-select flex-grow-1 border-end-0">
+                                        <option value="Meter" selected>Meter</option>
+                                        <option value="Foot">Foot</option>
+                                        <option value="Inch">Inch</option>
+                                        <option value="Person">Person</option>
+                                    </select>
+                                    <button class="btn btn-success border-start-0 rounded-0" id="addLengthUnitButton" type="button" data-bs-toggle="modal" data-bs-target="#addLengthModal">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Length Modal -->
+                        <div class="modal fade" id="addLengthModal" tabindex="-1" aria-labelledby="addLengthModalLabel">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-success text-white">
+                                        <h5 class="modal-title" id="addLengthModalLabel">Add New Length Unit</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="newLengthUnit" class="form-label">Length Unit:</label>
+                                            <input type="text" class="form-control" id="newLengthUnit" placeholder="Enter Length Unit (e.g., Meter)">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer bg-light">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-success" id="saveLengthUnit">Save Unit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="Material" class="col-md-4 col-form-label">Material</label>
+                                <div class="col-md-8">
+                                    <input id="Material" name="Material" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="LoadTestCertificateNumber" class="col-md-4 col-form-label">Load Test Certificate Number</label>
+                                <div class="col-md-8">
+                                    <input id="LoadTestCertificateNumber" class="form-control" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="DateofLoadTest" class="col-md-4 col-form-label">Date of Load Test</label>
+                                <div class="col-md-8">
+                                    <input id="DateofLoadTest" name="DateofLoadTest" type="text" class="form-control pointerCursor" placeholder="DD/MM/YYYY" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-2">
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="Load" class="col-md-4 col-form-label">Load</label>
+                                <div class="col-md-8 d-flex align-items-center">
+                                    <input type="number" id="Load" name="Load" class="form-control text-center" value="1" min="0" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="LoadUnit" class="col-md-4 col-form-label">Unit</label>
+                                <div class="col-md-8 d-flex">
+                                    <select id="LoadUnit" name="LoadUnit" class="form-select flex-grow-1 border-end-0">
+                                        <option value="Tons">Tons</option>
+                                        <option value="Lbs">Lbs</option>
+                                        <option value="Kg">Kg</option>
+                                        <option value="Person" selected>Person</option>
+                                    </select>
+                                    <button class="btn btn-success border-start-0 rounded-0" id="addLoadUnitButton" type="button" data-bs-toggle="modal" data-bs-target="#addLoadUnitModal">
+                                        <i class="bi bi-plus-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Modal-->
+                    <div class="modal fade" id="addLoadUnitModal" tabindex="-1" aria-labelledby="addLoadUnitModalLabel">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success text-white">
+                                    <h5 class="modal-title" id="addLoadUnitModalLabel">Add New Load Unit</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label for="newLoadUnit" class="form-label">Load Unit:</label>
+                                        <input type="text" class="form-control" id="newLoadUnit" placeholder="Enter Load Unit (e.g., Tons)">
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-light">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-success" id="saveLoadUnit">Save Unit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Modal-->
+
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="NextExaminationDate" class="col-md-4 col-form-label">Next Examination Date</label>
+                                <div class="col-md-8">
+                                    <input id="NextExaminationDate" name="NextExaminationDate" type="text" class="form-control pointerCursor" placeholder="DD/MM/YYYY" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="DefectivePart" class="col-md-4 col-form-label">Defective Part</label>
+                                <div class="col-md-8">
+                                    <input id="DefectivePart" name="DefectivePart" type="text" class="form-control" placeholder="Enter defective part" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="RequiredRepairs" class="col-md-4 col-form-label">Required Repairs</label>
+                                <div class="col-md-8">
+                                    <input id="RequiredRepairs" name="RequiredRepairs" type="text" class="form-control" placeholder="Enter required repairs" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <label for="EvaluationCriteria" class="col-md-4 col-form-label">Evaluation Criteria</label>
+                                <div class="col-md-8">
+                                    <input id="EvaluationCriteria" name="EvaluationCriteria" type="text" class="form-control" placeholder="Enter evaluation criteria" />
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                  
+                    <!--checkboxes-->
+
+                    <div class="row mt-2 mt-5">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <div class="col-md-8 offset-md-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsFirstInspection"> Is this first examination after installation?
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsInspectedWithin6Months"> Was the examination carried out within 6 months?
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsItemInstalledCorrectly"> If the above is yes, has the equipment been installed correctly?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <div class="col-md-8 offset-md-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsInspectedWithinLastYear"> Was the examination carried out within 12 months?
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsExaminedPerProtocol"> In accordance with examination scheme?
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsAfterUnusualEvent"> After the occurrence of exceptional circumstances?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <div class="col-md-8 offset-md-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsEquipmentSafe"> Is the equipment safe to operate?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group row">
+                                <div class="col-md-8 offset-md-4">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="IsDefectRiskToPersons"> Is the defect dangerous to persons?
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+                    <div class="row mt-2 mb-3">
+                        <div class="col-md-6 mt-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success me-2">Create</button>
+                                <button type="submit" class="btn btn-secondary">Back</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="../../js/site.js"></script>
+    <script src="certificate.js"></script>
+
+</body>
+</html>

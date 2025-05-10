@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apply for Certificate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f7f9fc, #e6ecf0);
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .form-container {
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-img {
+            width: 100px;
+            margin-right: 15px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5 d-flex w-60 justify-content-center" >
+        <div class="form-container">
+            <div class="page-header">
+                <img src="../../images/pen.png"  class="hero-img" alt="Apply Icon">
+                <h2 class="fw-bold text-primary">Apply for Certificate</h2>
+            </div>
+
+
+
+            <h5 class="text-center mb-5">Provide your location information if you want to add a new location, or if you haven't added your location yet.  </h5>
+            <form class="mb-5">
+
+                <div class="row mb-4">
+                    <label class="col-md-3 col-form-label fw-semibold"> <i class="bi bi-geo-alt text-primary pe-2 "></i> Location Name</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="locationName" placeholder="Enter Location Name" required>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label class="col-md-3 col-form-label fw-semibold"> <i class="bi bi-card-text text-primary pe-2"></i> Description</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="locationDesc" placeholder="Enter Description">
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <label class="col-md-3 col-form-label fw-semibold"> <i class="bi bi-telephone text-primary pe-2"></i> Phone Number</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" id="locationPhone" placeholder="Enter Phone Number">
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary px-4 mb-4">
+                        Add Location
+                    </button>
+                </div>
+
+
+            </form>
+
+
+            <form id="jobForm">
+                <!-- Location Fields -->
+               
+
+                <!-- Select Dropdown (optional if used for confirmation or pre-existing locations) -->
+                <div class="row mb-4">
+                    <label for="locationSelect" class="col-md-4 col-form-label fw-semibold">Select Location</label>
+                    <div class="col-md-8">
+                        <select id="locationSelect" class="form-select">
+                            <!-- Will be populated dynamically -->
+                            <option value="" disabled selected>Choose location</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Job Number -->
+                <div class="row mb-4">
+                    <label for="jobNumber" class="col-md-4 col-form-label fw-semibold">Job Number</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="jobNumber" placeholder="Enter Job Number" required>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary px-4">
+                        Submit 
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script>
+        // Optional: When location fields are filled, auto add to dropdown (for visual feedback)
+        document.getElementById('locationName').addEventListener('blur', function () {
+            const name = this.value.trim();
+            if (name) {
+                const select = document.getElementById('locationSelect');
+                const exists = Array.from(select.options).some(opt => opt.text === name);
+                if (!exists) {
+                    const option = new Option(name, name, true, true);
+                    select.add(option);
+                }
+            }
+        });
+
+        // Optional: Submit handling (adjust URL and logic as needed)
+        document.getElementById('jobForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const locationData = {
+                name: document.getElementById("locationName").value.trim(),
+                description: document.getElementById("locationDesc").value.trim(),
+                phone: document.getElementById("locationPhone").value.trim(),
+                jobNumber: document.getElementById("jobNumber").value.trim()
+            };
+
+            fetch("/Certificate/Apply", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(locationData)
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("Submission failed.");
+                    alert("Application submitted successfully!");
+                    // Optionally clear the form or redirect
+                })
+                .catch(err => alert(err.message));
+        });
+    </script>
+
+</body>
+</html>

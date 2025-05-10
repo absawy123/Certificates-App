@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <form id="loginForm" method="post">
+                        <h2>Use a local account to log in</h2>
+                        <hr />
+                        <div class="text-danger" role="alert" id="validation-summary"></div>
+
+                        <div class="form-floating mb-3">
+                            <input type="email" id="Input_Email" name="EmailInput" class="form-control" placeholder="name@example.com" />
+                            <label for="Input_Email">Email</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" id="Input_Password" name="InputPassword" class="form-control" placeholder="password" />
+                            <label for="Input_Password">Password</label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="Input_RememberMe" name="Input.RememberMe" />
+                            <label for="Input_RememberMe" class="form-check-label">Remember me?</label>
+                        </div>
+
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+
+                        <div class="mt-3">
+                           
+
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-6 offset-md-2">
+                    <div style="background-size:100%">
+                        <section>
+                            <img style="height:auto; max-width:100%" src="../../images/login@4x.png" alt="Login Image" />
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+</body>
+</html>

@@ -1,8 +1,16 @@
-﻿namespace WebApp.Api.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebApp.Api.Dtos
 {
     public class LoginUserDto
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [Required(ErrorMessage = "Email is Required")]
+        public string Email { get; set; } = default!;
+
+        [Required(ErrorMessage = "Password is Required")]
+        public string Password { get; set; } = default!;
+
+        public bool RememberMe { get; set; }
+
     }
 }

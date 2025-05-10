@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row">
+                <div class="col-md-4">
+                    <form id="loginForm" method="post">
+                        <h2 class="text-center mb-4"> Log in</h2>
+                        <div class="text-danger" role="alert" id="validation-summary"></div>
+
+                        <div class="form-floating mb-3">
+                            <input type="email" id="email" name="EmailInput" class="form-control" placeholder="name@example.com" />
+                            <label for="email">Email</label>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <input type="password" id="password" name="InputPassword" class="form-control" placeholder="password" />
+                            <label for="password">Password</label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="rememberMe" name="Input.RememberMe" />
+                            <label for="rememberMe" class="form-check-label">Remember me?</label>
+                        </div>
+
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    </form>
+                </div>
+
+                <div class="col-md-6 offset-md-2">
+                    <div style="background-size:100%">
+                        <section>
+                            <img style="height:auto; max-width:100%" src="../../images/login@4x.png" alt="Login Image" />
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+
+        // Handle Login
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let rememberMe = document.getElementById("rememberMe").checked;
+
+            fetch("/Account/Login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Email: email,
+                    Password: password,
+                    RememberMe: rememberMe
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.token) {
+
+                       // console.log(data)
+
+                        localStorage.setItem("Token", data.token);
+
+                        const tokenParts = data.token.split(".");
+                        if (tokenParts.length === 3) {
+                            const decodedPayload = JSON.parse(atob(tokenParts[1]));
+                            const role = decodedPayload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+
+                         //   console.log(decodedPayload)
+                            if (role) {
+                                localStorage.setItem("Role", role);
+                            }
+
+                            window.location.href = "../home.html";
+
+                        } else {
+                            console.log("Login failed:", data.message);
+                        }
+                    }
+})
+                .catch(error => console.error("Error:", error));
+        });
+    </script>
+
+
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>
